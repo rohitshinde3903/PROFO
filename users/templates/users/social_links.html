@@ -1,0 +1,40 @@
+{% extends 'users/base.html' %}
+{% block title %}Social Media Links{% endblock %}
+{% block content %}
+<h2 class="mb-4">Your Social Media Links</h2>
+
+<!-- Form -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Add Link</button>
+        </form>
+    </div>
+</div>
+
+<!-- Existing Links -->
+<h3>Existing Links</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Platform</th>
+            <th>URL</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for link in links %}
+        <tr>
+            <td>{{ link.platform }}</td>
+            <td><a href="{{ link.url }}" target="_blank">{{ link.url }}</a></td>
+            <td>
+                <a href="{% url 'edit_social_link' link.id %}" class="btn btn-sm btn-warning">Edit</a>
+                <a href="{% url 'delete_social_link' link.id %}" class="btn btn-sm btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

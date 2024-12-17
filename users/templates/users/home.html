@@ -1,0 +1,14 @@
+<!-- users/templates/users/home.html -->
+{% extends 'users/base.html' %}
+
+{% block title %}Home - PROFO{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center">
+        <h1 class="display-4 text-primary">Welcome to PROFO!</h1>
+        <p class="lead mt-3">Your one-stop place to manage all your social media profiles seamlessly.</p>
+        <a href="{% url 'profile' %}" class="btn btn-primary mt-4">Go to Your Profile</a>
+    </div>
+</div>
+{% endblock %}

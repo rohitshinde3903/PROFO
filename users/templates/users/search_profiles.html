@@ -1,0 +1,76 @@
+{% extends 'users/base.html' %}
+{% block title %}Search Profiles{% endblock %}
+{% block content %}
+
+<div class="container mt-5">
+    <!-- Search Form -->
+    <h2 class="mb-4 text-center">Search Profiles</h2>
+    <form method="GET" action="{% url 'search_profiles' %}" class="mb-4">
+        <div class="input-group">
+            <input 
+                type="text" 
+                name="q" 
+                class="form-control" 
+                placeholder="Search by username or bio" 
+                value="{{ query }}">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+    </form>
+
+    {% if query %}
+        <h3 class="mt-4 text-center">Results for "{{ query }}":</h3>
+
+        {% if page_obj %}
+            <!-- Results List -->
+            <ul class="list-group shadow mt-3">
+                {% for user in page_obj.object_list %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <!-- Username and Bio -->
+                        <div>
+                            <strong>{{ user.username }}</strong>
+                            {% if user.bio %}
+                                <p class="text-muted mb-0">{{ user.bio }}</p>
+                            {% endif %}
+                        </div>
+                        {% if user in request.user.following.all %}
+    <form method="POST" action="{% url 'unfollow_user' user.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger btn-sm">Unfollow</button>
+    </form>
+{% else %}
+    <form method="POST" action="{% url 'follow_user' user.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success btn-sm">Follow</button>
+    </form>
+{% endif %}
+
+                        <!-- View Profile Button -->
+                        <a href="{% url 'public_profile' user.username %}" class="btn btn-sm btn-secondary ms-2">View Profile</a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <!-- Pagination -->
+            {% if page_obj.has_other_pages %}
+                <div class="pagination d-flex justify-content-between mt-4">
+                    <a 
+                        href="?q={{ query }}&page={{ page_obj.previous_page_number }}" 
+                        class="btn btn-sm btn-outline-primary {% if not page_obj.has_previous %}disabled{% endif %}">
+                        Previous
+                    </a>
+                    <a 
+                        href="?q={{ query }}&page={{ page_obj.next_page_number }}" 
+                        class="btn btn-sm btn-outline-primary {% if not page_obj.has_next %}disabled{% endif %}">
+                        Next
+                    </a>
+                </div>
+            {% endif %}
+        {% else %}
+            <p class="text-muted text-center mt-4">No results found.</p>
+        {% endif %}
+    {% else %}
+        <p class="text-muted text-center mt-4">Enter a search term to find profiles.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
