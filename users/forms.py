@@ -24,9 +24,12 @@ from .models import CustomUser  # Use your custom user model
 class EditProfileForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'profile_picture', 'bio']  # Update with your fields
+        fields = ['username', 'email', 'profile_picture', 'bio']
         widgets = {
-            'bio': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
+            'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your username'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Enter your email'}),
+            'bio': forms.Textarea(attrs={'class': 'form-control', 'rows': 4, 'placeholder': 'Write something about yourself...'}),
+            'profile_picture': forms.FileInput(attrs={'class': 'form-control'}),
         }
 
 
