@@ -27,9 +27,9 @@ SECRET_KEY = "1234"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['profo.onrender.com', 'localhost']
+ALLOWED_HOSTS = ['profo.onrender.com']
 
-CSRF_TRUSTED_ORIGINS = ['https://profo.onrender.com']
+# CSRF_TRUSTED_ORIGINS = ['https://profo.onrender.com']
 
 
 
@@ -145,3 +145,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = 'users.CustomUser'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
