@@ -24,3 +24,4 @@ whitenoise==6.8.2
 wrapt==1.17.0
 yarl==1.18.3
 django-widget-tweaks==1.4.12
+waitress==2.1.0  # Add this line

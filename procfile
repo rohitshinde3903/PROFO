@@ -1,1 +1,1 @@
-web: gunicorn PROFO.wsgi:application
+web: waitress-serve --listen=0.0.0.0:$PORT PROFO.wsgi:application

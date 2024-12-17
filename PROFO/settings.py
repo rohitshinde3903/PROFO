@@ -134,7 +134,7 @@ CSRF_TRUSTED_ORIGINS = ['https://profo.onrender.com']
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 STATIC_URL = '/static/'
 
-# Add this line:
+# Make sure this is correctly set up for deployment
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
